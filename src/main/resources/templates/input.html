@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Tracking Details</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background-color: rgba(255, 255, 255, 0.8); /* Adding transparency to the background */
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100vh;
+        }
+        .form-container {
+            width: 300px; /* Reduced width */
+            background-color: rgba(255, 255, 255, 0.8); /* Adding transparency to the form container */
+            padding: 40px 20px; /* Increased padding for more height */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Adding a shadow effect */
+        }
+        input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Add Tracking Details</h2>
+
+    <form id="coordinatesForm" action="/map" method="get">
+        <label for="latitude">Latitude:</label>
+        <input type="text" id="latitude" name="latitude" placeholder="Enter Latitude">
+
+        <label for="longitude">Longitude:</label>
+        <input type="text" id="longitude" name="longitude" placeholder="Enter Longitude">
+
+        <button type="submit">Show Map</button>
+    </form>
+</div>
+
+</body>
+</html>

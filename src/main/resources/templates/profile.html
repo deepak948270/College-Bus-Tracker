@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+     
+
+.profile-container {
+    width: 80%;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: rgba(91, 76, 76, 0.7); /* Transparent black */
+    border-radius: 10px;
+    color: white;
+    box-shadow: 0 -10px 160px rgba(15, 13, 13, 0.5);
+}
+
+.profile-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.profile-header h1 {
+    font-size: 24px;
+}
+
+.profile-header img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-top: 10px;
+}
+
+.profile-details {
+    font-size: 18px;
+}
+
+.profile-details h2 {
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.profile-details ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.profile-details ul li {
+    margin-bottom: 5px;
+}
+
+    </style>
+    <!-- adding css file for navbar -->
+    <link rel="stylesheet" th:href="@{/css/navstyle.css}"/> 
+</head>
+<body>
+    <!-- replaces host tag with the fragment tag -->
+ <div th:replace="~{myfragments :: navbarfragment}">
+    <h1>host tag</h1>
+  </div>
+<div class="profile-container">
+    <div class="profile-header">
+        <h1>Welcome  <span th:text="${name}"></span></h1>
+        <img th:src="@{/images/profile.jpg}" alt="Profile Picture">
+    </div>
+    <div class="profile-details">
+        <h2>About Me</h2>
+        <p th:text="${description}"> </p>
+        <h2>Contact Information</h2>
+        <ul>
+            <li>Email: <span th:text="${email}"></span></li>
+<!--            <li><a href="mailto:sharmadeepak948270@gmail.com"><span style="color: yellow" >sharmadeepak948270@gmail.com</span></a></li>-->
+        </ul>
+    </div>
+</div>
+</body>
+</html>

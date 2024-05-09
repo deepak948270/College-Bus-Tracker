@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>About Us</title>
+    <style>
+      body {
+        background-color: rgba(
+          255,
+          255,
+          255,
+          0.9
+        ); /* Transparent white background */
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+      }
+      .container {
+        max-width: 800px;
+        margin: auto;
+      }
+      .card {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        padding: 20px;
+        background-color: #f9f9f9;
+      }
+      h1 {
+        text-align: center;
+        color: #333;
+      }
+      h2 {
+        color: #333;
+      }
+      p {
+        line-height: 1.6;
+      }
+    </style>
+    <!-- adding css file for navbar -->
+    <link rel="stylesheet" th:href="@{/css/navstyle.css}" />
+  </head>
+  <body>
+    <!-- replaces host tag with the fragment tag -->
+    <div th:replace="~{myfragments :: navbarfragment}">
+      <h1>host tag</h1>
+    </div>
+    <div class="container">
+      <h1>About Us</h1>
+
+      <div class="card">
+        <h2>Our Mission</h2>
+        <p>
+          Our primary expectation is to acquire real-time information about the
+          bus's location and promptly relay it to users. By doing so,
+          individuals can efficiently manage their time, ensuring they arrive at
+          their designated bus stop just before the bus arrives. This approach
+          empowers commuters to make informed decisions, such as opting for
+          alternative transportation if they miss the bus or find themselves
+          running late. Ultimately, the aim is to enhance time management and
+          provide users with a seamless and convenient commuting experience,
+          minimizing wait times and mitigating the impact of unexpected delays.
+        </p>
+      </div>
+
+      <div class="card">
+        <h2>Software Requirements Specification</h2>
+        <p>
+          1. Introduction:<br />
+          The College Bus Tracking System aims to provide real-time insights
+          into the location of college buses, enabling efficient commute
+          planning for students.
+        </p>
+        <!-- Include other sections of the SRS similarly -->
+      </div>
+
+      <div class="card">
+        <h2>Aims and Objectives</h2>
+        <h3>Aims:</h3>
+        <ul>
+          <li>
+            To enhance the overall transportation experience for college
+            students.
+          </li>
+          <li>
+            To provide a reliable solution for students to manage their commute
+            efficiently.
+          </li>
+        </ul>
+        <h3>Objectives:</h3>
+        <ul>
+          <li>
+            To develop a College Bus Tracking System offering real-time updates
+            on bus locations.
+          </li>
+          <li>
+            To implement an intuitive user interface for seamless bus tracking.
+          </li>
+          <li>
+            To ensure timely and accurate updates to facilitate effective
+            journey planning.
+          </li>
+          <li>
+            To reduce waiting durations and minimize the likelihood of missed
+            buses.
+          </li>
+          <li>
+            To improve student satisfaction and quality of life by enhancing the
+            transportation experience.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>
