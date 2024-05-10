@@ -26,8 +26,12 @@ public class SecurityUserServiceImpl implements SecurityUserService {
                 .password(passwordEncoder.encode(securityUser.getPassword()))
                 .email(securityUser.getEmail())
                 .description(securityUser.getDescription())
-                .role("ROLE_DRIVER")
+                .role(securityUser.getRole())
                 .build();
+
+                if(securityUser.getRole()==null){
+                    persistedUser.setRole("ROLE_USER");
+                }
 
         return securityUserRepository.save(persistedUser);
     }

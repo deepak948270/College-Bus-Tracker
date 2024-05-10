@@ -26,6 +26,7 @@ public class SignupController {
     @PostMapping(value = "/handler")
 
     public String signupHandler(SecurityUser user) {
+        
 
         SecurityUser savedUser = securityUserService.createUser(user);
         System.out.println(savedUser);

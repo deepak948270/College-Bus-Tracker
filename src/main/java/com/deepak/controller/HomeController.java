@@ -41,11 +41,11 @@ public class HomeController {
             // You can iterate over it or perform any other operations
             for (String role : roles) {
                 if (role.equals("ROLE_USER")) {
-                    model.addAttribute("role", "Logged As USER ");
+                    model.addAttribute("role", authentication.getName()+" Logged As USER ");
                 } else if (role.equals("ROLE_ADMIN")) {
-                    model.addAttribute("role", "Logged As ADMIN");
+                    model.addAttribute("role", authentication.getName()+" Logged As ADMIN");
                 } else if (role.equals("ROLE_DRIVER")) {
-                    model.addAttribute("role", "Logged As DRIVER");
+                    model.addAttribute("role", authentication.getName()+" Logged As DRIVER");
                 }
 
             }
