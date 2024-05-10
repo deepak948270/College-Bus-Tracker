@@ -113,10 +113,10 @@
       }
 
       footer {
-        background-color: #03022c;
+        background-color: rgba(3, 2, 44, 0.8); /* Transparent color */
         color: #fff;
         text-align: center;
-        padding: 20px 0;
+        padding: 40px 0; /* Increased padding */
         position: fixed;
         bottom: 0;
         width: 100%;
@@ -136,7 +136,9 @@
   <body>
     <header>
       <h1 style="color: yellow">College Bus Tracking System</h1>
-      <p style="color: rgb(136, 211, 109);">mitigating the impact of unexpected delays!</p>
+      <p style="color: rgb(136, 211, 109)">
+        mitigating the impact of unexpected delays!
+      </p>
       <!-- <input th:value="${role}" readonly="readonly" id="in"> -->
       <button th:text="${role}" id="in"></button>
       <nav>
@@ -158,17 +160,23 @@
               <!--                    <a  th:href="@{/profile}"  sec:authorize="hasRole('ROLE_USER')">View Profile</a>-->
               <a th:href="@{/profile}">View Profile</a>
               <a href="#">Track Bus Details</a>
-              <a th:href="@{/input}" sec:authorize="hasRole('ROLE_DRIVER')"
+              <a th:href="@{/mapInput}" sec:authorize="hasRole('ROLE_DRIVER')"
                 >Add Tracking Details</a
               >
               <a href="#">View Route Details</a>
-              <a th:href="@{/map}">View Map</a>
+              <a th:href="@{/showMap}">View Map</a>
             </div>
           </li>
           <li><a th:href="@{/signup}">Sign up</a></li>
           <li><a th:href="@{/contact}">contact us</a></li>
-          <li><a sec:authorize="!isAuthenticated()" th:href="@{/login}">Login</a></li>
-          <li><a sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a></li>
+          <li>
+            <a sec:authorize="!isAuthenticated()" th:href="@{/newLogin}"
+              >Login</a
+            >
+          </li>
+          <li>
+            <a sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a>
+          </li>
         </ul>
       </nav>
     </header>
@@ -213,7 +221,11 @@
         </div>
       </div>
     </div>
+    <!-- Footer -->
     <footer>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">FAQs</a>
       <p>&copy; 2024 College Bus Tracking System . All rights reserved.</p>
     </footer>
   </body>

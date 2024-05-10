@@ -69,7 +69,7 @@ public class SecurityConfig {
                 .cors(AbstractHttpConfigurer::disable)
 
                 .authorizeHttpRequests(authRequest -> authRequest
-                        .requestMatchers("/public/**", "/home", "/").permitAll()
+                        .requestMatchers("/public/**", "/home", "/","/newLogin").permitAll()
                         .requestMatchers("/css/**","/contact","/processcontact").permitAll()
                         .requestMatchers("/login").permitAll()
                         .requestMatchers("/about").permitAll()
@@ -78,7 +78,7 @@ public class SecurityConfig {
                 )
 
                 .formLogin(login -> login
-                .loginPage("/login")
+                .loginPage("/newLogin")
                         .defaultSuccessUrl("/")
                         .loginProcessingUrl("/processlogin")
                         .permitAll())

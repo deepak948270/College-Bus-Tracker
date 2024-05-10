@@ -25,7 +25,7 @@ public class HomeController {
         this.securityUserRepository = securityUserRepository;
     }
 
-    @GetMapping(value = {"/home", "/"})
+    @GetMapping(value = { "/home", "/" })
     public String viewHomePage(Authentication authentication, Model model) {
 
         if (authentication != null) {
@@ -61,46 +61,58 @@ public class HomeController {
         return "about";
     }
 
-
-    @GetMapping(value = "/input")
-    public String inputMap() {
-        return "input";
-    }
-
-    @GetMapping(value = "/map")
-    public String showMap(@RequestParam(defaultValue = "28.644800") String latitude, @RequestParam(defaultValue = "77.216721") String longitude, Model model) {
-        model.addAttribute("latitude", latitude);
-        model.addAttribute("longitude", longitude);
-        return "map";
-    }
-
     @GetMapping(value = "/profile")
-    public String profile(Principal principal,Model model) {
+    public String profile(Principal principal, Model model) {
         // call the repository to get the user
-        SecurityUser user = securityUserRepository.findByUsername(principal.getName()).orElseThrow(() -> new UsernameNotFoundException("user not found "));
-        model.addAttribute("name",principal.getName());
-        model.addAttribute("description",user.getDescription());
-        model.addAttribute("email",user.getEmail());
+        SecurityUser user = securityUserRepository.findByUsername(principal.getName())
+                .orElseThrow(() -> new UsernameNotFoundException("user not found "));
+        model.addAttribute("name", principal.getName());
+        model.addAttribute("description", user.getDescription());
+        model.addAttribute("email", user.getEmail());
 
         return "profile";
     }
 
     @GetMapping(value = "/viewUsers")
-    public String viewUsers(Model model){
+    public String viewUsers(Model model) {
         List<SecurityUser> users = securityUserRepository.findByRole("ROLE_USER");
         System.out.println(users);
-        model.addAttribute("users",users);
+        model.addAttribute("users", users);
 
         return "users";
     }
 
     @GetMapping(value = "/login")
-    public String login(){
+    public String login() {
         return "login";
+    }
+
+    @GetMapping(value = "/newLogin")
+    public String newLogin() {
+        return "newLogin";
     }
 
     @GetMapping("/accessDenied")
     public String accessdenied() {
         return "accessdenied";
+    }
+
+    @GetMapping("/mapInput")
+    public String map1() {
+        return "mapInput";
+    }
+
+    @GetMapping("/showMap")
+    public String map2(@RequestParam(defaultValue = "agra") String start,
+            @RequestParam(defaultValue = "punjab") String end,
+            @RequestParam(defaultValue = "mathura delhi") String stops, Model model) {
+
+        System.out.println(start);
+        System.out.println(end);
+
+        model.addAttribute("start", start);
+        model.addAttribute("end", end);
+        model.addAttribute("stops", stops);
+        return "showMap";
     }
 }

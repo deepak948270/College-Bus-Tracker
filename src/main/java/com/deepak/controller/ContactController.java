@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.deepak.dto.ContactDto;
 import com.deepak.mailsender.ContactService;
 
-
-
 @Controller
 public class ContactController {
 

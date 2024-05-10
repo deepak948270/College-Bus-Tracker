@@ -1,13 +1,13 @@
 package com.deepak.controller;
 
+import java.security.Principal;
+import java.util.Collection;
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.security.Principal;
-import java.util.Collection;
 
 @RestController
 public class TestController {
@@ -17,7 +17,6 @@ public class TestController {
 
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         System.out.println(authorities);
-
 
         return """
                 <h1 style='color:blue'>welcome %s to my application </h1>
@@ -35,6 +34,5 @@ public class TestController {
     public String adminUser() {
         return "admin user";
     }
-
 
 }

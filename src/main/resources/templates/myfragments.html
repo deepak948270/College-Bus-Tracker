@@ -140,14 +140,14 @@
     <!--                    <a  th:href="@{/profile}"  sec:authorize="hasRole('ROLE_USER')">View Profile</a>-->
                         <a  th:href="@{/profile}" >View Profile</a>
                         <a href="#">Track Bus Details</a>
-                        <a th:href="@{/input}" sec:authorize="hasRole('ROLE_DRIVER')">Add Tracking Details</a>
+                        <a th:href="@{/mapInput}" sec:authorize="hasRole('ROLE_DRIVER')">Add Tracking Details</a>
                         <a href="#">View My Route Details</a>
-                        <a  th:href="@{/map}" >View Map</a>
+                        <a  th:href="@{/showMap}" >View Map</a>
     
                     </div>
                 </li>
                 <li><a th:href="@{/signup}">Sign up</a></li>
-                <li><a sec:authorize="!isAuthenticated()" th:href="@{/login}">Login</a></li>
+                <li><a sec:authorize="!isAuthenticated()" th:href="@{/newLogin}">Login</a></li>
                 <li><a sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a></li>
     
             </ul>

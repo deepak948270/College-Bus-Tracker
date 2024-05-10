@@ -7,7 +7,10 @@
     <!-- adding css file for navbar -->
     <link rel="stylesheet" th:href="@{/css/navstyle.css}" />
     <!-- adding Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
   </head>
   <body>
     <!-- replaces host tag with the fragment tag -->
@@ -19,7 +22,7 @@
     <div class="container mt-4">
       <div class="card border-primary">
         <div class="card-header bg-success text-white">
-          <h5 class="card-title" >Success</h5>
+          <h5 class="card-title">Success</h5>
         </div>
         <div class="card-body">
           <h1>Hello Mr: <span th:text="${contactDto.name}"></span></h1>
@@ -30,7 +33,7 @@
         </div>
       </div>
     </div>
-    
+
     <!-- adding Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   </body>
