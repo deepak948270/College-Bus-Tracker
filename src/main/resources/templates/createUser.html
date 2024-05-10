@@ -14,7 +14,7 @@
         text-align: center;
         animation: fadeIn 0.5s;
         margin-left: 570px;
-        margin-bottom: 15px;
+        margin-bottom:15px ;
       }
 
       h1 {
@@ -102,11 +102,11 @@
     <!-- replaces host tag with the fragment tag -->
     <div th:replace="~{myfragments :: navbarfragment}">
       <h1>host tag</h1>
-    </div>
+    </div>  
     <div class="registration-container">
       <div class="decoration"></div>
       <h1>Create Users</h1>
-      <form action="#" method="post">
+      <form th:action="@{/createUserSuccess}" method="get">
         <div class="form-group">
           <label for="username">Username:</label>
           <input
@@ -152,7 +152,7 @@
         <div class="form-group">
           <label for="isActive">Active:</label>
           <select id="isActive" name="isActive">
-            <option value="true">Yes</option>
+            <option value="true" >Yes</option>
             <option value="false">No</option>
           </select>
         </div>
