@@ -115,4 +115,9 @@ public class HomeController {
         model.addAttribute("stops", stops);
         return "showMap";
     }
+
+    @GetMapping(value = "/createUser")
+    public String createUser(){
+        return "createUser";
+    }
 }

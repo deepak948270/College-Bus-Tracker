@@ -147,8 +147,13 @@
             <a href="#" sec:authorize="isAuthenticated()">Activities</a>
             <div class="dropdown-content">
               <a th:href="@{/viewUsers}" sec:authorize="hasRole('ROLE_ADMIN')"
-                >View User's And Activated
+                >View User's 
               </a>
+
+              <a th:href="@{/createUser}" sec:authorize="hasRole('ROLE_ADMIN')"
+              >Create User's And Activated
+            </a>
+
               <a th:href="@{/mapInput}" sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_DRIVER')"
                 >Add Bus Route</a
               >
