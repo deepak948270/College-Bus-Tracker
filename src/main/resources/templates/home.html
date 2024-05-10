@@ -75,8 +75,8 @@
       .dropdown-content {
         display: none;
         position: absolute;
-        background-color: #333;
-        min-width: 160px;
+        background-color: #08093c;
+        min-width: 260px;
         z-index: 1;
         top: 100%;
         left: 0;
@@ -141,7 +141,7 @@
       <button th:text="${role}" id="in"></button>
       <nav>
         <ul>
-          <li><a href="#">Home</a></li>
+          <li><a th:href="@{/}">Home</a></li>
           <li><a th:href="@{/about}">About</a></li>
           <li class="dropdown">
             <a href="#" sec:authorize="isAuthenticated()">Activities</a>
@@ -161,14 +161,14 @@
               <a th:href="@{/input}" sec:authorize="hasRole('ROLE_DRIVER')"
                 >Add Tracking Details</a
               >
-              <a href="#">View My Route Details</a>
+              <a href="#">View Route Details</a>
               <a th:href="@{/map}">View Map</a>
             </div>
           </li>
-          <li><a th:href="@{/signup}">Signup</a></li>
+          <li><a th:href="@{/signup}">Sign up</a></li>
           <li><a th:href="@{/contact}">contact us</a></li>
-          <li><a th:href="@{/login}">Login</a></li>
-          <li><a th:href="@{/logout}">Logout</a></li>
+          <li><a sec:authorize="!isAuthenticated()" th:href="@{/login}">Login</a></li>
+          <li><a sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a></li>
         </ul>
       </nav>
     </header>

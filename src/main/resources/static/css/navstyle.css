@@ -60,8 +60,8 @@
         .dropdown-content {
             display: none;
             position: absolute;
-            background-color: #333;
-            min-width: 160px;
+            background-color: #08093c;
+            min-width: 260px;
             z-index: 1;
             top: 100%;
             left: 0;
