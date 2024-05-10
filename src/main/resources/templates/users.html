@@ -1,96 +1,104 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Information</title>
     <style>
-      /* CSS styles for card */
-      .card {
-        width: 300px;
-        border-radius: 10px;
-        background-color: #fff;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        padding: 20px;
-        margin: 20px;
-      }
+        /* CSS styles for card */
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(calc(33.33% - 20px), 1fr)); /* Adjust column width */
+            gap: 20px; /* Adjust gap between cards */
+            padding: 20px;
+        }
 
-      .card-header {
-        text-align: center;
-        margin-bottom: 20px;
-        cursor: move; /* Set cursor to move for draggable effect */
-      }
+        .card {
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 0; /* Remove margin to prevent extra space */
+        }
 
-      .card-header h2 {
-        margin: 0;
-        color: #3498db;
-      }
+        .card-header {
+            text-align: center;
+            margin-bottom: 20px;
+            cursor: move; /* Set cursor to move for draggable effect */
+        }
 
-      .user-info {
-        list-style-type: none;
-        padding: 0;
-      }
+        .card-header h2 {
+            margin: 0;
+            color: #3498db;
+        }
 
-      .user-info li {
-        margin-bottom: 10px;
-      }
+        .user-info {
+            list-style-type: none;
+            padding: 0;
+        }
 
-      .user-info label {
-        font-weight: bold;
-      }
+        .user-info li {
+            margin-bottom: 10px;
+        }
 
-      .user-info span {
-        margin-left: 10px;
-      }
+        .user-info label {
+            font-weight: bold;
+        }
+
+        .user-info span {
+            margin-left: 10px;
+        }
     </style>
     <script>
-      // JavaScript for making the cards draggable
-      document.addEventListener("DOMContentLoaded", function () {
-        var cards = document.querySelectorAll(".card");
+        // JavaScript for making the cards draggable
+        document.addEventListener("DOMContentLoaded", function () {
+            var cards = document.querySelectorAll(".card");
 
-        cards.forEach(function (card) {
-          card.draggable = true; // Make card draggable
+            cards.forEach(function (card) {
+                card.draggable = true; // Make card draggable
 
-          card.addEventListener("dragstart", function (event) {
-            event.dataTransfer.setData("text/plain", event.target.id);
-          });
+                card.addEventListener("dragstart", function (event) {
+                    event.dataTransfer.setData("text/plain", event.target.id);
+                });
 
-          card.addEventListener("dragover", function (event) {
-            event.preventDefault();
-          });
+                card.addEventListener("dragover", function (event) {
+                    event.preventDefault();
+                });
+            });
         });
-      });
     </script>
     <!-- adding css file for navbar -->
     <link rel="stylesheet" th:href="@{/css/navstyle.css}" />
-  </head>
-  <body>
-    <!-- replaces host tag with the fragment tag -->
-    <div th:replace="~{myfragments :: navbarfragment}">
-      <h1>host tag</h1>
-    </div>
+</head>
+<body>
+<!-- replaces host tag with the fragment tag -->
+<div th:replace="~{myfragments :: navbarfragment}">
+    <h1>host tag</h1>
+</div>
 
-    <!-- Iterate over the list of users provided by the controller -->
+<!-- Iterate over the list of users provided by the controller -->
+<div class="container">
     <div th:each="user,count  : ${users}">
-      <div class="card" id="card-<th:utext>${count.index}">
-        <div class="card-header">
-          <h2 class="count" th:text="'User ' + ${count.index + 1}"></h2>
-          <ul class="user-info">
-            <li>
-              <label>Username:</label>
-              <span th:text="${user.username}"></span>
-            </li>
-            <li>
-              <label>Email:</label>
-              <span th:text="${user.email}"></span>
-            </li>
-            <li>
-              <label>Description:</label>
-              <span th:text="${user.description}"></span>
-            </li>
-          </ul>
+        <div class="card" id="card-<th:utext>${count.index}">
+            <div class="card-header">
+                <h2 class="count" th:text="'User ' + ${count.index + 1}"></h2>
+                <ul class="user-info">
+                    <li>
+                        <label>Username:</label>
+                        <span th:text="${user.username}"></span>
+                    </li>
+                    <li>
+                        <label>Email:</label>
+                        <span th:text="${user.email}"></span>
+                    </li>
+                    <li>
+                        <label>Description:</label>
+                        <span th:text="${user.description}"></span>
+                    </li>
+                </ul>
+            </div>
         </div>
-      </div>
     </div>
-  </body>
+</div>
+</body>
 </html>
