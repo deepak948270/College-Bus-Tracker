@@ -12,7 +12,7 @@
           auto-fill,
           minmax(calc(33.33% - 20px), 1fr)
         ); /* Adjust column width */
-        gap: 20px; /* Adjust gap between cards */
+        gap: 30px; /* Adjust gap between cards */
         padding: 20px;
       }
 
@@ -186,33 +186,28 @@
         var cards = document.querySelectorAll(".card");
 
         cards.forEach(function (card) {
-          card.draggable = true; // Make card draggable
-
+          card.draggable = true;
           card.addEventListener("dragstart", function (event) {
             event.dataTransfer.setData("text/plain", event.target.id);
           });
-
           card.addEventListener("dragover", function (event) {
             event.preventDefault();
           });
 
-          // Show popup on update button click
           var updateBtn = card.querySelector(".update");
           var updatePopup = card.querySelector(".update-popup");
           updateBtn.addEventListener("click", function (event) {
-            event.stopPropagation(); // Stop propagation to prevent closing
+            event.stopPropagation();
             updatePopup.style.display = "block";
           });
 
-          // Show popup on delete button click
           var deleteBtn = card.querySelector(".delete");
           var deletePopup = card.querySelector(".delete-popup");
           deleteBtn.addEventListener("click", function (event) {
-            event.stopPropagation(); // Stop propagation to prevent closing
+            event.stopPropagation();
             deletePopup.style.display = "block";
           });
 
-          // Close popup when clicking outside of it or on close button
           window.addEventListener("click", function (event) {
             if (event.target === updatePopup || event.target === deletePopup) {
               updatePopup.style.display = "none";
@@ -220,15 +215,18 @@
             }
           });
 
-          // Event listener for update button in popup
           var updateForm = updatePopup.querySelector(".popup-form");
           updateForm.addEventListener("submit", function (event) {
-            event.preventDefault(); // Prevent form submission
+            event.preventDefault();
 
-            // Collect updated values
-            var newUsername = updateForm.querySelector(
-              "input[type='text'][placeholder='New Username']"
-            ).value;
+            /*  var newUsername = updateForm.querySelector(
+            "input[type='text'][placeholder='New Username']"
+          ).value; */
+
+            var newUsername = card
+              .querySelector(".user-info li:nth-child(1) span")
+              .textContent.trim();
+
             var newEmail = updateForm.querySelector(
               "input[type='email'][placeholder='New Email']"
             ).value;
@@ -242,39 +240,72 @@
               "input[type='text'][placeholder='New Role']"
             ).value;
 
-            // Display updated values in console
-            console.log("Updated Username:", newUsername);
-            console.log("Updated Email:", newEmail);
-            console.log("Updated Description:", newDescription);
-            console.log("Set Enabled:", setEnabled);
-            console.log("Updated Role:", newRole);
+            var updateData = {
+              username: newUsername,
+              email: newEmail,
+              description: newDescription,
+              enabled: setEnabled,
+              role: newRole,
+            };
 
-            // Close the popup
-            updatePopup.style.display = "none";
+            fetch("/update", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(updateData),
+            })
+              .then((response) => {
+                if (!response.ok) {
+                  throw new Error("Network response was not ok");
+                }
+                location.reload();
+              })
+              .catch((error) => {
+                console.error(
+                  "There was a problem with the update request:",
+                  error
+                );
+              });
           });
 
-          // Event listener for delete button in popup
           var deleteConfirmation = deletePopup.querySelector("button");
           deleteConfirmation.addEventListener("click", function () {
-            // Collect information for deletion
             var username = card
-              .querySelector(".user-info label")
+              .querySelector(".user-info li:nth-child(1) span")
               .textContent.trim();
             var email = card
               .querySelector(".user-info li:nth-child(2) span")
               .textContent.trim();
 
-            // Display deletion information in console
-            console.log("Deleted Username:", username);
-            console.log("Deleted Email:", email);
+            var deleteData = {
+              username: username,
+              email: email,
+            };
 
-            // Close the popup
-            deletePopup.style.display = "none";
+            fetch("/delete", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(deleteData),
+            })
+              .then((response) => {
+                if (!response.ok) {
+                  throw new Error("Network response was not ok");
+                }
+                location.reload();
+              })
+              .catch((error) => {
+                console.error(
+                  "There was a problem with the delete request:",
+                  error
+                );
+              });
           });
         });
       });
 
-      // JavaScript function to close popup
       function closePopup(btn) {
         var popup = btn.closest(".popup");
         popup.style.display = "none";
@@ -310,6 +341,10 @@
                 <span th:text="${user.description}"></span>
               </li>
               <li>
+                <label>Role:</label>
+                <span th:text="${user.role}"></span>
+              </li>
+              <li>
                 <label>IsActive:</label>
                 <span th:text="${user.enabled}"></span>
               </li>
@@ -325,14 +360,24 @@
             <div class="popup-content">
               <h2>Update Form</h2>
               <form class="popup-form">
-                <input type="text" placeholder="New Username" />
-                <input type="email" placeholder="New Email" />
-                <input type="text" placeholder="New Description" />
+                <!-- no need to take value of username from the card we are taking directly from the card itself  -->
+                <input
+                  type="text"
+                  placeholder="New Username"
+                  th:name="username"
+                  hidden
+                />
+                <input type="email" placeholder="New Email" th:name="email" />
+                <input
+                  type="text"
+                  placeholder="New Description"
+                  th:name="description"
+                />
                 <div class="additional-fields">
-                  <input type="checkbox" /> Set Enable
-                  <input type="text" placeholder="New Role" />
+                  <input type="checkbox" th:name="enabled" checked /> Set Enable
+                  <input type="text" placeholder="New Role" th:name="role" value="ROLE_USER" />
                 </div>
-                <button>Update</button>
+                <button type="submit">Update</button>
                 <button
                   type="button"
                   class="cancel-btn"
