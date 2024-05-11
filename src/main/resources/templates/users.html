@@ -19,6 +19,7 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
             margin: 0; /* Remove margin to prevent extra space */
+            height: 200px; /* Set a fixed height for all cards */
         }
 
         .card-header {
@@ -94,6 +95,10 @@
                     <li>
                         <label>Description:</label>
                         <span th:text="${user.description}"></span>
+                    </li>
+                    <li>
+                        <label>IsActive:</label>
+                        <span th:text="${user.enabled}"></span>
                     </li>
                 </ul>
             </div>

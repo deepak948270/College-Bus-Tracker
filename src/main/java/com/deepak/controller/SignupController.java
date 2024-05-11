@@ -31,7 +31,7 @@ public class SignupController {
         SecurityUser savedUser = securityUserService.createUser(user);
         System.out.println(savedUser);
 
-        return "redirect:/login";
+        return "redirect:/newLogin";
 
     }
 }

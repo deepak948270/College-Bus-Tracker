@@ -1,6 +1,5 @@
 package com.deepak.entity;
 
-
 import java.util.Collection;
 import java.util.List;
 
@@ -31,7 +30,7 @@ public class SecurityUser implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userId;
 
-    @Column(unique = true,nullable = false)
+    @Column(unique = true, nullable = false)
     private String username;
 
     @Column(nullable = false)
@@ -43,6 +42,8 @@ public class SecurityUser implements UserDetails {
 
     private String role;
 
+    @Column(name = "is_enabled")
+    private boolean enabled;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -66,6 +67,6 @@ public class SecurityUser implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return enabled;
     }
 }

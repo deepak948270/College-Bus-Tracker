@@ -27,6 +27,7 @@ public class SecurityUserServiceImpl implements SecurityUserService {
                 .email(securityUser.getEmail())
                 .description(securityUser.getDescription())
                 .role(securityUser.getRole())
+                .enabled(securityUser.isEnabled())
                 .build();
 
                 if(securityUser.getRole()==null){
