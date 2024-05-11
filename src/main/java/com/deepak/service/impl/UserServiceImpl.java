@@ -4,26 +4,26 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.deepak.entity.SecurityUser;
-import com.deepak.repository.SecurityUserRepository;
-import com.deepak.service.SecurityUserService;
+import com.deepak.entity.User;
+import com.deepak.repository.UserRepository;
+import com.deepak.service.UserService;
 
 @Service
-public class SecurityUserServiceImpl implements SecurityUserService {
+public class UserServiceImpl implements UserService {
 
     private final PasswordEncoder passwordEncoder;
 
-    private final SecurityUserRepository securityUserRepository;
+    private final UserRepository userRepository;
 
-    public SecurityUserServiceImpl(PasswordEncoder passwordEncoder, SecurityUserRepository securityUserRepository) {
+    public UserServiceImpl(PasswordEncoder passwordEncoder, UserRepository userRepository) {
         this.passwordEncoder = passwordEncoder;
-        this.securityUserRepository = securityUserRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
-    public SecurityUser createUser(SecurityUser securityUser) {
+    public User createUser(User securityUser) {
 
-        SecurityUser persistedUser = SecurityUser.builder()
+        User persistedUser = User.builder()
                 .username(securityUser.getUsername())
                 .password(passwordEncoder.encode(securityUser.getPassword()))
                 .email(securityUser.getEmail())
@@ -36,13 +36,13 @@ public class SecurityUserServiceImpl implements SecurityUserService {
             persistedUser.setRole("ROLE_USER");
         }
 
-        return securityUserRepository.save(persistedUser);
+        return userRepository.save(persistedUser);
     }
 
     @Override
-    public SecurityUser updateUser(SecurityUser updatedUser) {
+    public User updateUser(User updatedUser) {
 
-        SecurityUser retrivedUser = securityUserRepository.findByUsername(updatedUser.getUsername())
+        User retrivedUser = userRepository.findByUsername(updatedUser.getUsername())
                 .orElseThrow(() -> new UsernameNotFoundException("user can't exit"));
 
         // update only the changed field's
@@ -66,15 +66,15 @@ public class SecurityUserServiceImpl implements SecurityUserService {
          * retrivedUser.setRole(updatedUser.getRole());
          */
 
-        return securityUserRepository.save(retrivedUser);
+        return userRepository.save(retrivedUser);
     }
 
     @Override
     public void deleteUser(String username) {
 
-        SecurityUser user = securityUserRepository.findByUsername(username)
+        User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("user can't exist !"));
 
-        securityUserRepository.delete(user);
+        userRepository.delete(user);
     }
 }

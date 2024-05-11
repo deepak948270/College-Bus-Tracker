@@ -1,6 +1,6 @@
 package com.deepak.config;
 
-import com.deepak.repository.SecurityUserRepository;
+import com.deepak.repository.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -19,9 +19,9 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableMethodSecurity
 public class SecurityConfig {
 
-    private final SecurityUserRepository securityUserRepository;
+    private final UserRepository securityUserRepository;
 
-    public SecurityConfig(SecurityUserRepository securityUserRepository) {
+    public SecurityConfig(UserRepository securityUserRepository) {
         this.securityUserRepository = securityUserRepository;
     }
 
@@ -32,20 +32,25 @@ public class SecurityConfig {
 
     @Bean
     UserDetailsService userDetailsService() {
-        /*UserDetails adminUser = User.builder()
-                .username("deepak")
-                .password(passwordEncoder().encode("deepak"))
-                .roles("ADMIN")
-                .build();
-
-
-        UserDetails normalUser = User.builder()
-                .username("aman")
-                .password(passwordEncoder().encode("aman"))
-                .roles("USER")
-                .build();
-
-        return new InMemoryUserDetailsManager(adminUser, normalUser);*/
+        /* 
+         // for InMemoryAuthentication
+         
+         * UserDetails adminUser = User.builder()
+         * .username("deepak")
+         * .password(passwordEncoder().encode("deepak"))
+         * .roles("ADMIN")
+         * .build();
+         * 
+         * 
+         * UserDetails normalUser = User.builder()
+         * .username("aman")
+         * .password(passwordEncoder().encode("aman"))
+         * .roles("USER")
+         * .build();
+         * 
+         * return new InMemoryUserDetailsManager(adminUser, normalUser);
+        
+         */
 
         return username -> securityUserRepository
                 .findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("invalid credentials"));
@@ -69,24 +74,22 @@ public class SecurityConfig {
                 .cors(AbstractHttpConfigurer::disable)
 
                 .authorizeHttpRequests(authRequest -> authRequest
-                        .requestMatchers("/public/**", "/home", "/","/newLogin").permitAll()
-                        .requestMatchers("/css/**","/contact","/processcontact").permitAll()
+                        .requestMatchers("/public/**", "/home", "/", "/newLogin").permitAll()
+                        .requestMatchers("/css/**", "/contact", "/processcontact").permitAll()
                         .requestMatchers("/login").permitAll()
                         .requestMatchers("/about").permitAll()
                         .requestMatchers("/signup/**").permitAll()
-                        .anyRequest().authenticated()
-                )
+                        .anyRequest().authenticated())
 
                 .formLogin(login -> login
-                .loginPage("/newLogin")
+                        .loginPage("/newLogin")
                         .defaultSuccessUrl("/")
                         .loginProcessingUrl("/processlogin")
                         .permitAll())
-                .exceptionHandling(exception->exception
-                .accessDeniedPage("/accessDenied"))     
+                .exceptionHandling(exception -> exception
+                        .accessDeniedPage("/accessDenied"))
 
                 .logout(Customizer.withDefaults())
-
 
                 .build();
     }

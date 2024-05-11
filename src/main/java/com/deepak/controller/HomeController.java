@@ -11,21 +11,18 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.deepak.entity.SecurityUser;
-import com.deepak.repository.SecurityUserRepository;
+import com.deepak.entity.User;
+import com.deepak.repository.UserRepository;
 
 @Controller
 public class HomeController {
 
-    private final SecurityUserRepository securityUserRepository;
+    private final UserRepository userRepository;
 
-    public HomeController(SecurityUserRepository securityUserRepository) {
-        this.securityUserRepository = securityUserRepository;
+    public HomeController(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @GetMapping(value = { "/home", "/" })
@@ -43,11 +40,11 @@ public class HomeController {
             // You can iterate over it or perform any other operations
             for (String role : roles) {
                 if (role.equals("ROLE_USER")) {
-                    model.addAttribute("role", authentication.getName()+" Logged As USER ");
+                    model.addAttribute("role", authentication.getName() + " Logged As USER ");
                 } else if (role.equals("ROLE_ADMIN")) {
-                    model.addAttribute("role", authentication.getName()+" Logged As ADMIN");
+                    model.addAttribute("role", authentication.getName() + " Logged As ADMIN");
                 } else if (role.equals("ROLE_DRIVER")) {
-                    model.addAttribute("role", authentication.getName()+" Logged As DRIVER");
+                    model.addAttribute("role", authentication.getName() + " Logged As DRIVER");
                 }
 
             }
@@ -67,7 +64,7 @@ public class HomeController {
     @GetMapping(value = "/profile")
     public String profile(Principal principal, Model model) {
         // call the repository to get the user
-        SecurityUser user = securityUserRepository.findByUsername(principal.getName())
+        User user = userRepository.findByUsername(principal.getName())
                 .orElseThrow(() -> new UsernameNotFoundException("user not found "));
         model.addAttribute("name", principal.getName());
         model.addAttribute("description", user.getDescription());
@@ -78,12 +75,18 @@ public class HomeController {
 
     @GetMapping(value = "/viewUsers")
     public String viewUsers(Model model) {
-        /* List<SecurityUser> users = securityUserRepository.findByRole("ROLE_USER"); */
+        /* List<SecurityUser> users = userRepository.findByRole("ROLE_USER"); */
 
-        List<SecurityUser> users = securityUserRepository.findAll();
+        List<User> users = userRepository.findAll();
         model.addAttribute("users", users);
 
         return "users";
+    }
+
+    // show createUser view
+    @GetMapping(value = "/createUser")
+    public String createUser() {
+        return "createUser";
     }
 
     @GetMapping(value = "/login")
@@ -111,25 +114,10 @@ public class HomeController {
             @RequestParam(defaultValue = "punjab") String end,
             @RequestParam(defaultValue = "mathura delhi") String stops, Model model) {
 
-        System.out.println(start);
-        System.out.println(end);
-
         model.addAttribute("start", start);
         model.addAttribute("end", end);
         model.addAttribute("stops", stops);
         return "showMap";
     }
 
-    @GetMapping(value = "/createUser")
-    public String createUser(){
-        return "createUser";
-    }
-
-    @ResponseBody
-    @GetMapping(value = "/createUserSuccess")
-    public SecurityUser createUserSuccess(SecurityUser user){
-        return user;
-    }
-
-    
 }
