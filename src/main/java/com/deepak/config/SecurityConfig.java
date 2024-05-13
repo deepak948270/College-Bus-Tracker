@@ -75,7 +75,7 @@ public class SecurityConfig {
 
                 .authorizeHttpRequests(authRequest -> authRequest
                         .requestMatchers("/public/**", "/home", "/", "/newLogin").permitAll()
-                        .requestMatchers("/css/**", "/contact", "/processcontact").permitAll()
+                        .requestMatchers("/css/**", "/images/**","/contact", "/processcontact").permitAll()
                         .requestMatchers("/login").permitAll()
                         .requestMatchers("/about").permitAll()
                         .requestMatchers("/signup/**").permitAll()
