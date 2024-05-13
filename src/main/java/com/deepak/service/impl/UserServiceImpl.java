@@ -1,5 +1,8 @@
 package com.deepak.service.impl;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -76,5 +79,17 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new UsernameNotFoundException("user can't exist !"));
 
         userRepository.delete(user);
+    }
+
+    @Override
+    public List<User> findAllUsers() {
+
+        return userRepository.findAll();
+    }
+
+    @Override
+    public Optional<User> findUserByUsername(String username) {
+
+        return userRepository.findByUsername(username);
     }
 }

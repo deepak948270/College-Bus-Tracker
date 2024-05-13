@@ -14,15 +14,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.deepak.entity.User;
-import com.deepak.repository.UserRepository;
+import com.deepak.service.UserService;
 
 @Controller
 public class HomeController {
 
-    private final UserRepository userRepository;
+    private final UserService userService;
 
-    public HomeController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public HomeController(UserService userService) {
+        this.userService = userService;
     }
 
     @GetMapping(value = { "/home", "/" })
@@ -64,7 +64,7 @@ public class HomeController {
     @GetMapping(value = "/profile")
     public String profile(Principal principal, Model model) {
         // call the repository to get the user
-        User user = userRepository.findByUsername(principal.getName())
+        User user = userService.findUserByUsername(principal.getName())
                 .orElseThrow(() -> new UsernameNotFoundException("user not found "));
         model.addAttribute("name", principal.getName());
         model.addAttribute("description", user.getDescription());
@@ -77,7 +77,7 @@ public class HomeController {
     public String viewUsers(Model model) {
         /* List<SecurityUser> users = userRepository.findByRole("ROLE_USER"); */
 
-        List<User> users = userRepository.findAll();
+        List<User> users = userService.findAllUsers();
         model.addAttribute("users", users);
 
         return "users";
